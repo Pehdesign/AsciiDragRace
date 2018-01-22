@@ -14,9 +14,9 @@ public class Main {
         boolean isEnd;
         int win = 0,lose = 0,tie = 0;
 
-        do {
+        System.out.println("Welcome to AsciiDragRace \nHave Fun :) \n ");
 
-            System.out.println("Welcome to AsciiDragRace \nHave Fun :) \n ");
+        do {
 
             TrackBoundry();
             SetPlayerInStart();
