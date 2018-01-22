@@ -1,8 +1,5 @@
 package com.company;
 
-import javax.rmi.CORBA.Tie;
-import java.io.Console;
-import java.util.FormatFlagsConversionMismatchException;
 import java.util.Scanner;
 
 public class Main {
