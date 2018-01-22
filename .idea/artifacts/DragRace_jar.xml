@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DragRace:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DragRace_jar</output-path>
+    <root id="archive" name="DragRace.jar">
+      <element id="module-output" name="DragRace" />
+    </root>
+  </artifact>
+</component>

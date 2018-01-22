@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_dragrace" default="compile.module.dragrace">
+  <dirname property="module.dragrace.basedir" file="${ant.file.module_dragrace}"/>
+  
+  <property name="module.jdk.home.dragrace" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.dragrace" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.dragrace" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.dragrace" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="dragrace.output.dir" value="${module.dragrace.basedir}/out/production/DragRace"/>
+  <property name="dragrace.testoutput.dir" value="${module.dragrace.basedir}/out/test/DragRace"/>
+  
+  <path id="dragrace.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="dragrace.module.production.classpath">
+    <path refid="${module.jdk.classpath.dragrace}"/>
+  </path>
+  
+  <path id="dragrace.runtime.production.module.classpath">
+    <pathelement location="${dragrace.output.dir}"/>
+  </path>
+  
+  <path id="dragrace.module.classpath">
+    <path refid="${module.jdk.classpath.dragrace}"/>
+    <pathelement location="${dragrace.output.dir}"/>
+  </path>
+  
+  <path id="dragrace.runtime.module.classpath">
+    <pathelement location="${dragrace.testoutput.dir}"/>
+    <pathelement location="${dragrace.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.dragrace">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.dragrace">
+    <patternset refid="excluded.from.module.dragrace"/>
+  </patternset>
+  
+  <path id="dragrace.module.sourcepath">
+    <dirset dir="${module.dragrace.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.dragrace" depends="compile.module.dragrace.production,compile.module.dragrace.tests" description="Compile module DragRace"/>
+  
+  <target name="compile.module.dragrace.production" depends="register.custom.compilers" description="Compile module DragRace; production classes">
+    <mkdir dir="${dragrace.output.dir}"/>
+    <javac2 destdir="${dragrace.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.dragrace}/javac">
+      <compilerarg line="${compiler.args.dragrace}"/>
+      <bootclasspath refid="dragrace.module.bootclasspath"/>
+      <classpath refid="dragrace.module.production.classpath"/>
+      <src refid="dragrace.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.dragrace"/>
+    </javac2>
+    
+    <copy todir="${dragrace.output.dir}">
+      <fileset dir="${module.dragrace.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.dragrace.tests" depends="register.custom.compilers,compile.module.dragrace.production" description="compile module DragRace; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.dragrace" description="cleanup module">
+    <delete dir="${dragrace.output.dir}"/>
+    <delete dir="${dragrace.testoutput.dir}"/>
+  </target>
+</project>
