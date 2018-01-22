@@ -11,7 +11,6 @@ public class Car {
     public void Run() {
         carRandom = new Random();
         location = location + carRandom.nextInt(3);
-        if (location > 25) {location = 26;}
         for(int i = 0; i < location; i++) {System.out.print(" ");}
         System.out.println(carChar);
     }
